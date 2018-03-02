@@ -32,7 +32,7 @@ function loadLanguage() {
     }
     switch($languageSet) {
         case 'ch':
-            array_push($GLOBALS['language'], "Deheime", "Versteck dini Siite");
+            array_push($GLOBALS['language'], "Deheime", "Versteck dini Site");
             break;
         case 'en':
             array_push($GLOBALS['language'], "Home", "Cover your Page");
