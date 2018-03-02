@@ -12,10 +12,11 @@ function build($file) {
             <meta name="author" content="">
             <link rel="icon" href="../../../../favicon.ico">
         	<?php 
+        	
         	require_once './php/language.php';
         	loadLanguage();
         	?>
-            <title>SpotEasy - <?php getLanguageOn(0); ?></title>
+            <title>SpotEasyy - <?php getLanguageOn(1); ?></title>
             <link href="css/bootstrap.css" rel="stylesheet">
             <link href="css/cover.css" rel="stylesheet">
           </head>
@@ -23,7 +24,13 @@ function build($file) {
     	  <body class="text-center">
     	  <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
     		<header class="masthead mb-auto">
-    			<?php require_once 'header.php'; ?>
+    			<?php
+    			if ($file=="") {
+    			
+    			} else {
+    			    require_once 'header.php';
+    			}
+    			  ?>
     		</header>
     		
     		<main role="main" class="inner cover">

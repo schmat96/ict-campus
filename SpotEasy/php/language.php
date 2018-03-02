@@ -4,43 +4,58 @@ function getLanguageOn($ele) {
     echo $GLOBALS['language'][$ele];
 }
 
+function getLanguageSet() {
+    if (isset($GLOBALS['languageSet']) && $GLOBALS['languageSet'] != "") {
+        return $GLOBALS['languageSet'];
+    } else {
+        return "de";
+    }
+    
+}
+
 $GLOBALS['language'] = array();
+$GLOBALS['languageSet'] = "";
 
 function loadLanguage() {
     
-    $languageSet = "";
+    
     if (isset($_GET['lang'])) {
         $lang = $_GET['lang'];
         $lang = strtolower($lang);
         switch($lang) {
             case 'ch':
-                $languageSet = "ch";
+                $GLOBALS['languageSet'] = "ch";
                 break;
             case 'en':
-                $languageSet = "en";
+                $GLOBALS['languageSet'] = "en";
                 break;
             case 'de':
-                $languageSet = "de";
+                $GLOBALS['languageSet'] = "de";
                 break;
             default:
-                $languageSet = "de";
+                $GLOBALS['languageSet'] = "de";
                 break;
         }
 
     } else {
-        $languageSet = "de";
+        $GLOBALS['languageSet'] = "de";
     }
-    switch($languageSet) {
-        case 'ch':
-            array_push($GLOBALS['language'], "Deheime", "Versteck dini Site");
-            break;
-        case 'en':
-            array_push($GLOBALS['language'], "Home", "Cover your Page");
-            break;
-        case 'de':
-            array_push($GLOBALS['language'], 'Zuhause');
-            array_push($GLOBALS['language'], "Verstecke deine Seite");
-            break;
+    
+    require_once 'database.php';
+    $database = databaseConnection();
+    
+    if(!$database)
+    {
+        exit("Verbindungsfehler: ".mysqli_connect_error());
+    } else {
+        $abfrage = "SELECT languages_ID as 'id', ".$GLOBALS['languageSet']." as 'lang' FROM `tbl_languages`";
+        $ergebnis = mysqli_query($database, $abfrage);
+        
+        while($row = mysqli_fetch_object($ergebnis))
+        {
+            $GLOBALS['language'][$row->id] = $row->lang;
+            
+        }
     }
    
     
