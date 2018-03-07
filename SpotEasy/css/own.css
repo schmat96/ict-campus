@@ -1,0 +1,75 @@
+#regForm {
+    width: 100%;
+    margin: 20px 10% 50px 10%;
+    cursor: grab;
+}
+
+#regForm label, #regForm input{
+    width: 100%;
+    cursor: grab;
+}
+
+
+#regForm input{
+    width: 100%;
+    cursor: grab;
+}
+
+#regForm {
+    width: 100%;
+    margin: 20px 0% 50px 0%;
+    cursor: grab;
+}
+
+#regForm input {
+    margin: 0;
+    width: 100%;
+    height: 50px;
+    font-size: 35px;
+    border-style: solid;
+	border-color: rgba(255, 0, 0, .3);
+	border-width: thick;
+}
+
+#regForm [type="submit"] {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+#logout {
+	font-size: 35px;
+	float: right;
+}
+
+
+#regForm img {
+	width: 10%;
+	margin: 0 45% 0 45% 0;
+	
+}
+
+#regForm p {
+    display: inline;
+}
+
+#regForm label {
+    margin: 0;
+    width: 100%;
+    margin: auto;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+#regForm #helpLink {
+	 font-size: 1.5em;
+	 text-decoration: underline;
+	 margin: 20px 0 0 0;
+}
+
+#helpLink:hover {
+	 background-color: #333333;
+}
+
+#regForm label span {
+    font-size: 0.7em;
+}
