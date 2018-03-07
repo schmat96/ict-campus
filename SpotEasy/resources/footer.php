@@ -1,6 +1,8 @@
 
 <div class="inner">
-   <p>SpotEasy <?php echo getUserText() ?> </p>
+
+   <p>SpotEasy - Johanna Koch & Mathias Schmid & Dini Mutz4rpokeetter</p>
+
 </div>
 
 <?php 
