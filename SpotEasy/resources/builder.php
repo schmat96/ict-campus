@@ -1,5 +1,5 @@
 <?php 
-function build($file) {
+function build($file, $name = "") {
     ?>
 
          <!doctype html>
@@ -11,14 +11,29 @@ function build($file) {
             <meta name="description" content="">
             <meta name="author" content="">
             <link rel="icon" href="../../../../favicon.ico">
-        	<?php 
+        	<?php
         	
         	require_once './php/language.php';
         	loadLanguage();
+        	require_once './php/titleAndIcon.php';
+        	setTitle($name);
         	?>
-            <title>SpotEasyy - <?php getLanguageOn(1); ?></title>
+        	
+        	<script>
+				(function loadJS(){
+			  		function load(script) {
+			    document.write('<'+'script src="js/'+script+'" type="text/javascript"><' + '/script>');
+			  }
+			  		
+			  
+			})();
+    		</script>
+		
+        	
+            
             <link href="css/bootstrap.css" rel="stylesheet">
             <link href="css/cover.css" rel="stylesheet">
+            <link href="css/own.css" rel="stylesheet">
           </head>
 
     	  <body class="text-center">
@@ -32,8 +47,10 @@ function build($file) {
     			}
     			  ?>
     		</header>
+    		 
     		
     		<main role="main" class="inner cover">
+    			
     			<?php require_once './views/'.$file; ?>
     		</main>
     		
@@ -51,6 +68,7 @@ function build($file) {
         <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
         <script src="../../../../assets/js/vendor/popper.min.js"></script>
         <script src="../../../../dist/js/bootstrap.min.js"></script>
+
         </body>
     </html>
     

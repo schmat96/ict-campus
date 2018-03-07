@@ -1,6 +1,14 @@
 <?php
 function databaseConnection() {
-    return mysqli_connect("localhost", "root", "", "SpotEasy");
+    $db = mysqli_connect("localhost", "root", "", "SpotEasy");
+    $abfrage = "SET NAMES 'utf8'";
+    if ($db->query($abfrage) === TRUE) {
+        return $db;
+    } else {
+        return $db;
+    }
+    
+    
 }
 
 ?>

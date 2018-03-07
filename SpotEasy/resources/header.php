@@ -1,5 +1,5 @@
   <div class="inner">
-          <h3 class="masthead-brand">SpotEasy</h3>
+          <h3 class="masthead-brand">SpotEasy - <a id="logout" href="logout">Logout</a></h3>
           <nav class="nav nav-masthead justify-content-center">
 
 			   <?php 
@@ -40,4 +40,5 @@
 
             
           </nav>
+          
         </div>
