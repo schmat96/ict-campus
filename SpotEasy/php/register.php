@@ -1,4 +1,8 @@
 <?php 
+/**
+ * Überprüft das Formular für die Registrierung. Falls alles den Vorgaben entspricht wird der neue User
+ * in die DB eingefügt und eingeloggt.
+ */
 function registerCheck() {
 
       //Variabeln definieren und leere Werte einsetzen
@@ -13,21 +17,17 @@ function registerCheck() {
       
       $hinweisTextReturn = array();
       
-      //Funktion um gewisse Sonderzeichen etc von Usereingaben abzutrennen (Anti-Hacker)
-      function test_input($data){
-      	$data = trim($data);
-      	$data = stripslashes($data);
-      	$data = htmlspecialchars($data);
-      	return $data;
-      }
       
       //Überprüfen ob das Formular ausgefüllt wurde --> Register ist value von submit-button
       if(isset($_POST["email"]) && isset($_POST["password1"]) && isset($_POST["password2"])){
      	
      	//Auslesen der Daten und testen
-     	$email = test_input($_POST["email"]);
-     	$password1 = test_input($_POST["password1"]);
-     	$password2 = test_input($_POST["password2"]);
+     	
+          require_once 'escapes.php';
+          
+          $email = htmlEscapses($_POST["email"]);
+          $password1 = htmlEscapses($_POST["password1"]);
+          $password2 = htmlEscapses($_POST["password2"]);
 
      	
      	//Prüfvariabel
@@ -52,12 +52,12 @@ function registerCheck() {
      	
      	//Check ob alles richtig ausgefüllt war
      	if (!$emailinv && !$passwinv){
-     		echo 'alles ok';
-     		require_once '.\php\databaseCRUD.php';
+     		require_once './php/databaseCRUD.php';
+     		echo "komisch";
      		$id = insertIntoUsers($email, $password1);
-     		header('Location: http://localhost/SpotEasy2/ict-campus/SpotEasy/about');
+     		header('Location: login');
      	} else {
-     	    echo "<br>ich war hier";
+     	    
      	    $_SESSION['email'] = $email;
      	    $_SESSION['password1'] = $password1;
      	    $_SESSION['password2'] = $password2;
@@ -69,7 +69,7 @@ function registerCheck() {
      	    $_SESSION['hinweisText'] = $text;
      	    echo $text;
      	   
-     	    header('Location: http://localhost/SpotEasy2/ict-campus/SpotEasy/register');
+     	    header('Location: register');
      	    exit();
      	}
      	

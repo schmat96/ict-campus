@@ -1,11 +1,9 @@
   <div class="inner">
-          <h3 class="masthead-brand">SpotEasy - <a id="logout" href="logout">Logout</a></h3>
+          <a href="home"> <h3 class="masthead-brand">SpotEasy</h3></a>
           <nav class="nav nav-masthead justify-content-center">
 
 			   <?php 
                 
-
-			   
 			   
 			   
               	function setActive($var) {
@@ -18,17 +16,16 @@
               	
               	function replaceURL($var, $ToReplace) {
               	    $actualURL = $_SERVER['REQUEST_URI'];
-              	    $query = $_GET;
-              	    $query[$ToReplace] = $var;
-              	    $query_result = http_build_query($query);
               	    $actualURL =  explode('?',$actualURL)[0];
-              	    return $actualURL.'?'.$query_result;
+              	    $actualURL =  explode('/',$actualURL);
+              	    $actualURL = $actualURL[count($actualURL)-1];
+              	    return $actualURL.'?lang='.$var;
               	}
               	
               	$languages = array("ch", "en", "de");
               	foreach ($languages as $key ) {
               	    $url = replaceURL($key, 'lang');
-              	    echo '<a class="nav-link '.setActive($key).'" href="'.$url.'">'.$key.'</a>';
+              	    echo '<a class="nav-link '.setActive($key).' languages" href="'.$url.'">'.$key.'</a>';
               	}
               	
         
@@ -40,5 +37,6 @@
 
             
           </nav>
+          
           
         </div>

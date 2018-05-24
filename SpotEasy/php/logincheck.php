@@ -1,27 +1,39 @@
 <?php
+
+/**
+ * Checkt ob das Login korrekt ist. 
+ * Falls alles korrekt ist, wird die $_SESSION['userID'] gesetzt.
+ */
 function loginCheck(){
-	//Variabeln definieren und leere Werte einsetzen
+	/**
+	 * Variabeln definieren und leere Werte einsetzen
+	 */
 	$email = $password = "";
-	
-	//Funktion um gewisse Sonderzeichen etc von Usereingaben abzutrennen (Anti-Hacker)
-	function test_input($data){
-		$data = trim($data);
-		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
-		return $data;
-	}
-	//Überprüfen ob das Formular ausgefüllt wurde
+    /**
+     * Überprüfen ob das Formular ausgefüllt wurde
+     */
 	if(isset($_POST["email"]) && isset($_POST["password"])){
 		
-		//Auslesen der Daten und Anti-Hacking
-		$email = test_input($_POST["email"]);
-		$password = test_input($_POST["password"]);
+		/**
+		 * Auslesen der Daten und Anti-Hacking
+		 */
+		require_once 'escapes.php';
+	    
+	    $email = htmlEscapses($_POST["email"]);
+	    $password = htmlEscapses($_POST["password"]);
 		
-		//Prüfvariabel
+		/**
+		 * Prüfvariabel
+		 */
 		$emailinv = false;
 		$passwinv = false;
+		$salt = "";
+		$emailDB = "";
 		
-		//Verbinden mit der Userdatenbank
+		/**
+		 * Verbinden mit der Userdatenbank
+		 * #TODO auf php/databaseCRUD.php auslagern!
+		 */
 		require_once 'database.php';
 		if (!isset($database)) {
 			$database = databaseConnection();
@@ -30,28 +42,65 @@ function loginCheck(){
 		{
 			exit("Verbindungsfehler: ".mysqli_connect_error());
 		} else {
-			//Email überprüfen
-			$sqlemail = "SELECT * FROM tbl_user where email = $email";
-			$sqlemailres = $database->query($sqlemail);
-		
-			if ($sqlmailres->num_rows > 0){
-				while ($row = msqli_fetch_object($result)){
-					$dbpw = $row->password;
-					$dbsalt = $row->password_salt;
-				}
-				//Passwort überprüfen wenn Email existiert
-				$hashpw = hashfunction($password,$dbsalt);
-				if ($hashpw != $dbpw){
-					$passwinv = true;
-				}	
+			
+			/**
+			 * Email überprüfen
+			 * @var Ambiguous $abfrage
+			 * #TODO SQL Incejtion nicht gewährleistet.............
+			 */
+		    $abfrage = 'SELECT * FROM `tbl_user` where email = \''.$email.'\'';
+			$result = $database->query($abfrage);
+		    echo "<br>";
+			var_dump($result);
+			if ($result->num_rows > 0) {
+			    while ($row = mysqli_fetch_object($result)) {
+			        var_dump($row);
+			        $emailDB = $row->email;
+			        $salt = $row->password_salt;
+			        $hashedDB = $row->password;
+			        if ($email == $emailDB) {
+			            $emailinv = true;
+			            require_once 'hash.php';
+			            $hashed = hashfunction($password, $salt);
+			            if ($hashed == $hashedDB) {
+			                $passwinv = true;
+			            }
+			        } else {
+			            
+			        }
+			    }
 			} else {
-				$emailinv = true;				
+			   echo "<br>test";
 			}
 		}
 		
-		//Check ob alles richtig ausgefüllt war
-		if (!$emailinv && !$passwinv){
-			//PLS Usfülle
+		/**
+		 * Check ob alles richtig ausgefüllt war
+		 */
+		if ($emailinv){
+		    if ($passwinv) {
+		        $_SESSION['userID'] = $email;
+		        header('Location: home');
+		        exit();
+		    } else {
+		        $_SESSION['email'] = $email;
+		        $_SESSION['password1'] = $password;
+		        $text = "Passwort stimmt nicht";
+		        echo $text;
+		        $_SESSION['hinweisText'] = $text;
+		        header('Location: login');
+		        exit();
+		    }
+		   
+		} else {
+		    $_SESSION['email'] = $email;
+		    $_SESSION['password1'] = $password;
+		    $text = "E-Mail und Passwort stimmen nicht";
+		    echo $text;
+		    $_SESSION['hinweisText'] = $text;
+		    
+		    header('Location: login');
+		    exit();
 		}
 	}
 }

@@ -1,3 +1,118 @@
+
+/*SWITCH*/
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 34px;
+  margin-top: 30px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #c7b2d4;
+  -webkit-transition: .4s;
+  transition: .4s;
+  
+  
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 50%;
+  left: 4px;
+  bottom: 4px;
+  background-color: #815d96;
+  -webkit-transition: .4s;
+  transition: .4s;
+  
+}
+
+input:checked + .slider {
+  background-color: #c7b2d4;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #c7b2d4;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(96.5%);
+  -ms-transform: translateX(96.5%);
+  transform: translateX(96.5%);
+}
+
+.slider:after
+{
+ content:'ARTIST';
+ color: #ffffff;
+ display: block;
+ position: absolute;
+ transform: translate(-50%,-50%);
+ top: 50%;
+ left: 50%;
+ font-size: 20px;
+ font-family: Verdana, sans-serif;
+ margin: 0 20% 0 0;
+}
+
+input:checked + .slider:after
+{  
+  content:'GENRE';
+}
+
+
+
+.song{
+	background-color: #523363;
+	padding: 6px 0;
+
+}
+
+.song2{
+	background-color: #5c426b;
+	padding: 6px 0;
+}
+
+.songlist {
+	height: 100px;
+}
+
+.void{
+	margin:0;
+	padding:0;
+}
+
+.column{
+	width: 25%;
+	float: left;
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap; /* Firefox */    
+	white-space: -pre-wrap;     /* Opera <7 */   
+	white-space: -o-pre-wrap;   /* Opera 7 */    
+	word-wrap: break-word;      /* IE */
+	margin:2px 0;
+
+}
+
+.puffer{
+	width: 5%;
+	float: left;
+}
+
+
 #regForm {
     width: 100%;
     margin: 20px 10% 50px 10%;
@@ -7,6 +122,12 @@
 #regForm label, #regForm input{
     width: 100%;
     cursor: grab;
+}
+
+.lead a {
+	width: 100%;
+	margin: 20px auto 0 auto;
+	color: #C7B2D4;
 }
 
 
@@ -27,7 +148,6 @@
     height: 50px;
     font-size: 35px;
     border-style: solid;
-	border-color: rgba(255, 0, 0, .3);
 	border-width: thick;
 }
 
@@ -36,12 +156,45 @@
 #regForm [type="submit"] {
     margin-top: 20px;
     font-size: 20px;
+    color: #C7B2D4;
+    background-color: white;
+}
+
+#regForm [type="submit"]:hover {
+    font-size: 25px;
+}
+
+.breit {
+	width: 100%;
+}
+
+.breit input[type=text] {
+	width: 100%;
+	padding: 0 auto 0 auto;
+}
+
+.breit ::-webkit-input-placeholder {
+   text-align: center;
+}
+
+.breit :-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+
+.breit ::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+
+.breit :-ms-input-placeholder {  
+   text-align: center; 
 }
 
 #logout {
 	font-size: 35px;
 	float: right;
 }
+
+
 
 
 #regForm img {
@@ -75,3 +228,179 @@
 #regForm label span {
     font-size: 0.7em;
 }
+
+.stern, .loeschen, .spotifyIcon {
+	height: 25px;
+}
+
+#papierkorb {
+	position: fixed;
+  	bottom: 0px;
+	right: 0px;
+	height: 200px;
+	display: none;
+}
+
+#erstesCanvas {
+	position: fixed;
+  	bottom: 0px;
+	right: 0px;
+	height: 200px;
+	width: 200px;
+}
+
+.turning0 {
+	-webkit-animation:spin 1s linear;
+    -moz-animation:spin 1s linear;
+    animation:spin 1s linear;
+}
+
+.turning1 {
+	-webkit-animation:spin 1.4s linear;
+    -moz-animation:spin 1.4s linear;
+    animation:spin 1.4s linear;
+}
+
+.turning2 {
+	-webkit-animation:spin 1.6s linear;
+    -moz-animation:spin 1.6s linear;
+    animation:spin 1.6s linear;
+}
+
+.turning3 {
+	-webkit-animation:spin 1.8s linear;
+    -moz-animation:spin 1.8s linear;
+    animation:spin 1.8s linear;
+}
+
+.turning4 {
+	-webkit-animation:spin 2s linear;
+    -moz-animation:spin 2s linear;
+    animation:spin 2s linear;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotateX(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotateX(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotateX(360deg); transform:rotateX(360deg); } }
+
+@keyframes my-animation {  
+
+  from {
+    opacity : 0;
+    left : -500px;
+  }
+  to {
+    opacity : 1;
+    
+  }      
+}
+
+.papierkorbAni {
+  	animation: my-animation 1s ease, spin 1s linear;
+}
+
+#spotExport label {
+	width: 45%;
+	margin: 0;
+}
+
+#spotExport {
+	margin-top: 20px;
+}
+
+#spotExport p {
+	font-size: 1.2em;
+	margin: 0;
+}
+
+#spotExport input[type=submit], #spotExport input[type=text] {
+	width: 100%;
+}
+
+
+.canvas {
+	width: 70%;
+	display: inline;
+	float: right;
+	height: 50px;
+}
+
+.nameScan {
+	width: 30%;
+	margin: 0;
+	display: inline;
+	float: left;
+	padding: 0;
+	height: 50px;
+}
+
+
+.flipped {
+	display: none;
+}
+
+
+.bigPrasi, .bigPrasi2 {
+	font-size: 100px;
+	font-style: bold;
+	list-style: none;	
+}
+
+.bigPrasi a:hover, .bigPrasi2 a:hover {
+	text-decoration: none;	
+}
+
+.bigPrasi2 {
+	font-size: 80px;
+
+}
+
+
+
+
+
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000px;
+}
+	/* flip the pane when hovered */
+	.flip-container:hover .flipper, .flip-container.hover .flipper {
+		transform: rotateY(180deg);
+	}
+
+.flip-container, .front, .back {
+	width: 320px;
+	height: 480px;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 3s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+}
+
+
+
